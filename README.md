@@ -27,8 +27,8 @@
 - Django 2.2+ (Python 3.6+)
 - Django REST Framework
 
-<!-- #### Frontend
-- React <specify your versions> -->
+ #### Frontend
+- React 16.12.0
 
 ## Build Instructions
 
@@ -41,10 +41,12 @@
   python3 manage.py runserver
 ```
 
-<!-- #### Frontend
+ #### Frontend
 ```bash
-
-``` -->
+    cd client
+    npm install
+    npm start
+```
 
 ## Development Instructions
 
