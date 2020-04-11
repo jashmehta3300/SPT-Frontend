@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import SignUp from './components/SignUp';
 import SalesPeople from './components/SalesPeople';
 import ForgotPass from './components/ForgotPass';
 import SignIn from './components/SignIn';
@@ -13,15 +12,13 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact component={SignIn} />{' '}
-          <Route path="/forgotpass" exact component={ForgotPass} />{' '}
-          <Route path="/signup" exact component={SignUp} />{' '}
-          <Route path="/dashboard" exact component={Dashboard} />{' '}
-          <Route path="/inventory" exact component={Inventory} />{' '}
-          <Route path="/sales-people" exact component={SalesPeople} />{' '}
-        </Switch>{' '}
-        {/*<ThirdPage />*/} {/*<ForgotPass />*/}
-      </div>{' '}
+          <Route path="/" exact component={SignIn} />
+          <Route path="/forgotpass" exact component={ForgotPass} />
+          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/inventory" exact component={Inventory} />
+          <Route path="/sales-people" exact component={SalesPeople} />
+        </Switch>
+      </div>
     </Router>
   );
 }
