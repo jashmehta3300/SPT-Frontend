@@ -70,6 +70,7 @@ export default function SignIn(props) {
           auth.login(() => {
             props.history.push('/inventory');
           });
+          console.log(auth.isAuthenticated());
         } else {
           console.log('Unsuccessful');
         }

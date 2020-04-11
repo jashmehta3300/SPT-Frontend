@@ -16,10 +16,6 @@ class Auth {
         cb();
     }
 
-    isAuthenticated() {
-        return this.authenticated;
-    }
-
     getToken() {
         return this.token
     }
