@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,9 +10,6 @@ import AddItem from './AddItem'
 import Stocks from './Stocks'
 import clsx from 'clsx';
 import { Container, Button, ButtonGroup, Grid, Paper, Box } from '@material-ui/core';
-import purple from '@material-ui/core/colors/purple';
-
-const purp = purple[900];
 
 
 const drawerWidth = 241;
@@ -24,7 +20,6 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor : purp
   },
   drawer: {
     width: drawerWidth,
@@ -64,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
 }));
-function Inventory() {
+function Navigation() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
@@ -100,9 +95,9 @@ function Inventory() {
         variant="contained"
         disableElevation
       >
-        <Button href='/dashboard' className={classes.makeSpace}>Dashboard</Button>
-        <Button href='/inventory' className={classes.makeSpace} color = 'secondary'>Inventory</Button>
-        <Button href='/sales-people' className={classes.makeSpace}>SalesPeople</Button>
+        <Button className={classes.makeSpace}>Dashboard</Button>
+        <Button  className={classes.makeSpace}>Inventory</Button>
+        <Button className={classes.makeSpace}>SalesPeople</Button>
       </ButtonGroup>
         
       </Drawer>
@@ -135,4 +130,4 @@ function Inventory() {
     )
 }
 
-export default Inventory
+export default Navigation

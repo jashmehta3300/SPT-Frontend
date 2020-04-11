@@ -1,174 +1,136 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-//import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Paper from '@material-ui/core/Paper';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import RegisterNewSp from './RegisterNewSp'
+import PersonUnder from './PersonUnder'
+import clsx from 'clsx';
+import { Container, Button, ButtonGroup, Grid, Paper, Box } from '@material-ui/core';
+import purple from '@material-ui/core/colors/purple';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {' '}
-      {'Copyright © '}{' '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website{' '}
-      </Link>{' '}
-      {new Date().getFullYear()} {'.'}{' '}
-    </Typography>
-  );
-}
+const purp = purple[900];
+
+const drawerWidth = 241;
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
+  root: {
     display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: purp
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    textAlign:'center'
+    
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  toolbar: theme.mixins.toolbar,
+  makeCenter:{
+    display:'flex',
+    justifyContent:'center',
+    marginTop:20
+  },
+  setSize:{
+    height:100,
+    width:100,
+    
+  },
+  makeSpace:{
+    margin:theme.spacing(2),
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
     flexDirection: 'column',
-    alignItems: 'center'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-    paddingLeft: '5vw'
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  }
 }));
-
-var SalesPeople = () => {
-  const classes = useStyles();
-  const [items, setItems] = React.useState('');
-  const [locations, setLocations] = React.useState('');
-  const inputLabel = React.useRef(null);
-  const handleChangeItem = event => {
-    setItems(event.target.value);
-  };
-  const handleChangeLocation = event => {
-    setLocations(event.target.value);
-  };
-
-  return (
-    <Container component="main" maxWidth="xs">
+function SalesPeople() {
+    const classes = useStyles();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    return (
+      <div className={classes.root}>
       <CssBaseline />
-      <Paper className={classes.paper}>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={10}>
-              <Typography component="h5" variant="h6">
-                REGISTER NEW SALESPERSON{' '}
-              </Typography>{' '}
-            </Grid>{' '}
-            <Grid item xs={10} sm={5}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                //variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>{' '}
-            <Grid item xs={10} sm={5}>
-              <TextField
-                //variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>{' '}
-            <Grid item xs={10}>
-              <TextField
-                //variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>{' '}
-            <Grid item xs={10}>
-              <FormControl className={classes.formControl} fullWidth>
-                <InputLabel id="items-associated">
-                  {' '}
-                  Items Associated{' '}
-                </InputLabel>{' '}
-                <Select
-                  //labelId="demo-simple-select-label"
-                  id="items-associated"
-                  value={items}
-                  onChange={handleChangeItem}
-                >
-                  <MenuItem value={10}> Ten </MenuItem>{' '}
-                  <MenuItem value={20}> Twenty </MenuItem>{' '}
-                  <MenuItem value={30}> Thirty </MenuItem>{' '}
-                </Select>{' '}
-              </FormControl>{' '}
-            </Grid>{' '}
-            <Grid item xs={10}>
-              <FormControl className={classes.formControl} fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  {' '}
-                  Locations Serving{' '}
-                </InputLabel>{' '}
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={locations}
-                  onChange={handleChangeLocation}
-                >
-                  <MenuItem value={10}> Ten </MenuItem>{' '}
-                  <MenuItem value={20}> Twenty </MenuItem>{' '}
-                  <MenuItem value={30}> Thirty </MenuItem>{' '}
-                </Select>{' '}
-              </FormControl>{' '}
+      <AppBar position="fixed" className={classes.appBar} >
+        <Toolbar>
+          <Typography variant="h6" noWrap>
+           SALESPERSON TRACKER
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.toolbar} />
+        <Container maxWidth="sm" className={classes.makeCenter}>
+            <Avatar className={classes.setSize} src="/iamges.png" / >
+          
+        </Container>
+       <Typography component="h2" variant="h6" style={{paddingTop:20}}>Admin Name</Typography>
+       <Typography component="h3" variant="h6" style={{paddingTop:10,paddingBottom:10}}>Manager</Typography>
+       
+       <ButtonGroup
+      style={{boxShadow:'none'}}
+        orientation="vertical"
+        color="primary"
+        aria-label="vertical contained primary button group"
+        variant="contained"
+        disableElevation
+      >
+        <Button href='/dashboard' className={classes.makeSpace}>Dashboard</Button>
+        <Button href='/inventory' className={classes.makeSpace} >Inventory</Button>
+        <Button href='/sales-people' className={classes.makeSpace} color = 'secondary'>SalesPeople</Button>
+      </ButtonGroup>
+        
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            
+            
+            <Grid item xs={12} md={6} lg={6}>
+              <Paper className={fixedHeightPaper}>
+              <PersonUnder />
+              </Paper>
             </Grid>
-          </Grid>{' '}
-          <Grid item xs={10}>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              ADD{' '}
-            </Button>{' '}
+           
+            <Grid item xs={12} md={6} lg={6}>
+              <Paper className={fixedHeightPaper}>
+                <RegisterNewSp />
+              </Paper>
+            </Grid>
+           
+           
           </Grid>
-        </form>{' '}
-      </Paper>
-    </Container>
-  );
-};
+          <Box pt={4}>
+            
+          </Box>
+        </Container>
+      </main>
+    </div>
+    )
+}
 
-export default SalesPeople;
+export default SalesPeople
