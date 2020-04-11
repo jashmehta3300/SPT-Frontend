@@ -6,6 +6,7 @@ import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
 import Inventory from './components/Inventory';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={SignIn} />
           <Route path="/forgotpass" exact component={ForgotPass} />
-          <Route path="/dashboard" exact component={Dashboard} />
-          <Route path="/inventory" exact component={Inventory} />
-          <Route path="/sales-people" exact component={SalesPeople} />
+          <ProtectedRoute path="/dashboard" exact component={Dashboard} />
+          <ProtectedRoute path="/inventory" exact component={Inventory} />
+          <ProtectedRoute path="/sales-people" exact component={SalesPeople} />
+          <Route path="*" exact component={() => '404 NOT FOUND'} />
         </Switch>
       </div>
     </Router>
