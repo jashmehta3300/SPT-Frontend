@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import auth from '../auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -66,6 +67,10 @@ export default function SignIn() {
         if (data.Flag === 1) {
           console.log('Admin logged in successfully');
           localStorage.setItem('Token', data.Token);
+          auth.login(() => {
+            props.history.push('/inventory');
+          });
+          console.log(auth.isAuthenticated());
         } else {
           console.log('Unsuccessful');
         }
