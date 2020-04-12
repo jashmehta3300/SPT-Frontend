@@ -7,20 +7,21 @@ import Dashboard from './components/Dashboard';
 import Inventory from './components/Inventory';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import SignedInRoute from './SignInRoute';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact component={SignIn} />
-          <Route path="/forgotpass" exact component={ForgotPass} />
-          <ProtectedRoute path="/dashboard" exact component={Dashboard} />
-          <ProtectedRoute path="/inventory" exact component={Inventory} />
-          <ProtectedRoute path="/sales-people" exact component={SalesPeople} />
-          <Route path="*" exact component={() => '404 NOT FOUND'} />
-        </Switch>
-      </div>
+          <SignedInRoute path="/" exact component={SignIn} />{' '}
+          <Route path="/forgotpass" exact component={ForgotPass} />{' '}
+          <ProtectedRoute path="/dashboard" exact component={Dashboard} />{' '}
+          <ProtectedRoute path="/inventory" exact component={Inventory} />{' '}
+          <ProtectedRoute path="/sales-people" exact component={SalesPeople} />{' '}
+          <Route path="*" exact component={() => '404 NOT FOUND'} />{' '}
+        </Switch>{' '}
+      </div>{' '}
     </Router>
   );
 }

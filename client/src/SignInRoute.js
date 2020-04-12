@@ -8,15 +8,15 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         if (
-          localStorage.getItem('Token') != null &&
-          localStorage.getItem('Status') == 'LoggedIn'
+          localStorage.getItem('Status') == null ||
+          localStorage.getItem('Status') == 'LoggedOut'
         ) {
           return <Component {...props} />;
         } else {
           return (
             <Redirect
               to={{
-                pathname: '/',
+                pathname: '/dashboard',
               }}
             />
           );
