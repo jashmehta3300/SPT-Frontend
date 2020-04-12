@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from rest_framework.decorators import api_view, authentication_classes
 from django.contrib.auth import authenticate, login, logout
