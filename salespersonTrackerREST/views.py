@@ -15,6 +15,7 @@ from .models import *
 import base64
 from django.utils.html import escape
 import ast
+from django.contrib.auth.models import User
 from .permissions import Permit
 
 
@@ -62,7 +63,8 @@ def SignIn(request):
         except:
             flag = 0
             s = Salesperson.objects.get(User_ref=request.user)
-
+            s.isLoggedin=True
+            s.save()
             response = {
                 "Token": token.key,
                 "S_id": s.User_ref.username,
@@ -123,9 +125,38 @@ def ChangePassword(request):
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])
 def Logout(request):
-    logout(request)
-    d = {"message": "LoggedOut"}
-    return JsonResponse(d, status=status.HTTP_200_OK)
+    try:
+        s=Salesperson.objects.get(User_ref=request.user)
+        s.isLoggedin=False
+        s.save()
+        d = {"message": "LoggedOut"}
+        return JsonResponse(d, status=status.HTTP_200_OK)
+    except:
+        d = {"message": "LoggedOut"}
+        return JsonResponse(d, status=status.HTTP_200_OK)
+        
+
+
+# @api_view(["POST"])
+# def accept(request):
+#     data=request.data['data']
+
+#     data=ast.literal_eval(data)
+#     print(type(data))
+#     print(data['data'])
+#     x=data['data']
+#     print(type(x))
+#     for y in x:
+#         print(y)
+#     return JsonResponse('ok',safe=False)
+
+
+# @api_view(["POST", "GET"])
+# @authentication_classes([TokenAuthentication])
+# def Test(request):
+
+#     print(request.user)
+#     return JsonResponse("ok", safe=False)
 
 
 class AddSalesperson(generics.GenericAPIView):
@@ -167,13 +198,14 @@ class GetCoordinates(generics.GenericAPIView):
         s = Salesperson.objects.filter(Managed_By=m)
         SalesPerson = []
         for x in s:
-            d_Salesperson = {
-                "id": x.User_ref.username,
-                "Lat": x.last_location_lat,
-                "Long": x.last_location_long,
-            }
-            SalesPerson.append(d_Salesperson)
-            d_Salesperson = {}
+            if x.isLoggedin == True:
+                d_Salesperson = {
+                    "id": x.User_ref.username,
+                    "Lat": x.last_location_lat,
+                    "Long": x.last_location_long,
+                }
+                SalesPerson.append(d_Salesperson)
+                d_Salesperson = {}
         response = {
             "Coordinates": SalesPerson,
         }
