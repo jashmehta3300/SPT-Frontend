@@ -165,14 +165,15 @@ class GetCoordinates(generics.GenericAPIView):
         s = Salesperson.objects.filter(Managed_By=m)
         SalesPerson = []
         for x in s:
-            d_Salesperson = {
-                "name": x.Name,
-                "id": x.User_ref.username,
-                "Lat": x.last_location_lat,
-                "Long": x.last_location_long,
-            }
-            SalesPerson.append(d_Salesperson)
-            d_Salesperson = {}
+            if x.isLoggedin == True:
+                d_Salesperson = {
+                    "name": x.Name,
+                    "id": x.User_ref.username,
+                    "Lat": x.last_location_lat,
+                    "Long": x.last_location_long,
+                }
+                SalesPerson.append(d_Salesperson)
+                d_Salesperson = {}
         response = {
             "Coordinates": SalesPerson,
         }
