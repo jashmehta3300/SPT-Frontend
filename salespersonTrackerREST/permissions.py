@@ -13,3 +13,4 @@ class Permit(permissions.BasePermission):
             return True
         except:
             return False
+

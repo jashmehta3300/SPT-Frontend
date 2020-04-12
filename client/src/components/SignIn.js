@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import auth from '../auth';
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -67,8 +66,9 @@ export default function SignIn(props) {
         if (data.Flag === 1) {
           console.log('Admin logged in successfully');
           localStorage.setItem('Token', data.Token);
+          localStorage.setItem('Status', 'LoggedIn');
           auth.login(() => {
-            props.history.push('/inventory');
+            props.history.push('/dashboard');
           });
           console.log(auth.isAuthenticated());
         } else {
@@ -84,10 +84,10 @@ export default function SignIn(props) {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
+        </Avatar>{' '}
         <Typography component="h1" variant="h5">
           Sign in
-        </Typography>
+        </Typography>{' '}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -121,17 +121,17 @@ export default function SignIn(props) {
             className={classes.submit}
             onClick={submitHandler}
           >
-            Sign In
-          </Button>
+            Sign In{' '}
+          </Button>{' '}
           <Grid container>
             <Grid item xs>
               <Link href="/forgotpass" variant="body2">
                 Forgot password ?
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
+              </Link>{' '}
+            </Grid>{' '}
+          </Grid>{' '}
+        </form>{' '}
+      </div>{' '}
     </Container>
   );
 }
