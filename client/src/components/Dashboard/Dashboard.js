@@ -6,8 +6,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import AddItem from './AddItem';
-import Stocks from './Stocks';
+import AddItem from '../Inventory/AddItem';
+import Stocks from '../Inventory/Stocks';
 import clsx from 'clsx';
 import {
   Container,
@@ -17,7 +17,11 @@ import {
   Paper,
   Box,
 } from '@material-ui/core';
+import purple from '@material-ui/core/colors/purple';
+import Map from './Map';
+import auth from '../../auth';
 
+const purp = purple[900];
 const drawerWidth = 241;
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: purp,
   },
   drawer: {
     width: drawerWidth,
@@ -63,9 +68,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
 }));
-function Navigation() {
+
+export default function Dashboard(props) {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const logoutUser = async () => {
+    await localStorage.setItem('Token', null);
+    await localStorage.setItem('Status', 'LoggedOut');
+    console.log(auth.isAuthenticated());
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -106,32 +117,25 @@ function Navigation() {
           variant="contained"
           disableElevation
         >
-          <Button className={classes.makeSpace}>Dashboard</Button>
-          <Button className={classes.makeSpace}>Inventory</Button>
-          <Button className={classes.makeSpace}>SalesPeople</Button>
+          <Button
+            href="/dashboard"
+            className={classes.makeSpace}
+            color="secondary"
+          >
+            Dashboard
+          </Button>
+          <Button href="/inventory" className={classes.makeSpace}>
+            Inventory
+          </Button>
+          <Button href="/sales-people" className={classes.makeSpace}>
+            SalesPeople
+          </Button>
+          <Button href="/" className={classes.makeSpace} onClick={logoutUser}>
+            Logout
+          </Button>
         </ButtonGroup>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={6}>
-              <Paper className={fixedHeightPaper}>
-                <Stocks />
-              </Paper>
-            </Grid>
-
-            <Grid item xs={12} md={6} lg={6}>
-              <Paper className={fixedHeightPaper}>
-                <AddItem />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}></Box>
-        </Container>
-      </main>
+      <Map />
     </div>
   );
 }
-
-export default Navigation;
