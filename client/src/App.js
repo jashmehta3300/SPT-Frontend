@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import SalesPeople from './components/SalesPeople';
+import SalesPeople from './components/SalesPeople/SalesPeople';
 import ForgotPass from './components/ForgotPass';
 import SignIn from './components/SignIn';
-import Dashboard from './components/Dashboard';
-import Inventory from './components/Inventory';
+import Dashboard from './components/Dashboard/Dashboard';
+import Inventory from './components/Inventory/Inventory';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
