@@ -21,11 +21,10 @@ export default class Map extends React.Component {
   };
 
   fetchData() {
+    const word = 'Token ';
+    const token = word.concat(`${localStorage.getItem('Token')}`);
     let formData = new FormData();
-    formData.append(
-      'Authorization',
-      'Token fb0213d482df9a0f992b68c61e7ba30a58950585'
-    );
+    formData.append('Authorization', `${token}`);
 
     fetch(`http://127.0.0.1:8000/Operations/GetCoordinates`, {
       method: 'POST',
