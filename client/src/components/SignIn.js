@@ -10,6 +10,22 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import auth from '../auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Call it once in your app. At the root of your app is the best place
+toast.configure({
+  position: 'top-right',
+  autoClose: '2000',
+  hideProgressBar: false,
+  newestOnTop: false,
+  closeOnClick: true,
+  rtl: false,
+  pauseOnVisibilityChange: true,
+  draggable: false,
+  pauseOnHover: true,
+});
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -41,6 +57,31 @@ export default function SignIn(props) {
     password: '',
   });
 
+  function notify(text, type) {
+    switch (type) {
+      case 'info':
+        toast.info(`🦄${text}`, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        break;
+      case 'error':
+        toast.error(`🦄${text}`, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        break;
+    }
+  }
+
   const handleChange = (prop) => (event) => {
     setValues({
       ...values,
@@ -64,15 +105,14 @@ export default function SignIn(props) {
       .then((data) => {
         console.log(data);
         if (data.Flag === 1) {
-          console.log('Admin logged in successfully');
           localStorage.setItem('Token', data.Token);
           localStorage.setItem('Status', 'LoggedIn');
           auth.login(() => {
             props.history.push('/dashboard');
           });
-          console.log(auth.isAuthenticated());
+          notify('  Login Successful!!!', 'info');
         } else {
-          console.log('Unsuccessful');
+          notify('  Incorrect details :(', 'error');
         }
       })
       .catch((err) => console.log);
